@@ -1,37 +1,67 @@
 defaults:
   - _self_
   - agent: potil
-  - suite: dmc
   - override hydra/launcher: submitit_local
 
+
+# copypasta mostly
+task_name: ???
+suite:
+  name: metaworld
+
+  # copypasta from suite/metaworld_task/params.yaml
+  num_train_frames_bc: 110000
+  stddev_schedule_bc: 0.1
+  num_train_frames_drq: 3100000
+  stddev_schedule_drq: 'linear(1.0,0.1,500000)'
+
+  # copypasta from suite/metaworld.yaml
+  # task settings
+  frame_stack: 1
+  action_repeat: 1
+  discount: 0.99
+  hidden_dim: 1024
+
+  # train settings
+  num_train_frames: 1_500_000
+  num_seed_frames: 15_000
+
+  # eval
+  eval_every_frames: 20_000
+  num_eval_episodes: 10
+
+  # snapshot
+  save_snapshot: true
+
 # Root Dir
-root_dir: '/path/to/dir/ROT'
+root_dir: '/home/dxyang/code/rewardlearning-vid/ROT'
 
 # replay buffer
-replay_buffer_size: 150000
+replay_buffer_size: 150_000
 replay_buffer_num_workers: 2
 nstep: 3
 batch_size: 256 # 128
+
 # misc
 seed: 2
 device: cuda
-save_video: true
+save_video: false
 save_train_video: false
 use_tb: true
 
 # experiment
 obs_type: 'pixels' # pixels, features
-experiment: bc_${suite.name}_${obs_type}_${task_name}_seed_${seed}
+experiment: metaworld_${obs_type}_${task_name}_seed_${seed}
 
 # expert dataset
 num_demos: 10 #50(openaigym), 10(dmc), 1(metaworld), 1(particle), 1(robotgym)
-expert_dataset: '${root_dir}/ROT/expert_demos/${suite.name}/${task_name}/expert_demos.pkl'
+expert_dataset: '${root_dir}/ROT/expert_demos/metaworld/${task_name}-v2/expert_demos.pkl'
 
 # Load weights
 load_bc: false
 
 # Weights
-bc_weight: '${root_dir}/ROT/weights/${suite.name}_${obs_type}/${task_name}/bc.pt'
+bc_weight: '${root_dir}/ROT/weights/metaworld_${obs_type}/${task_name}/bc.pt'
 
 # Train with BC loss
 bc_regularize: false
