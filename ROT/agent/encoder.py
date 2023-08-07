@@ -20,5 +20,5 @@ class Encoder(nn.Module):
     def forward(self, obs):
         obs = obs / 255.0 - 0.5
         h = self.convnet(obs)
-        h = h.view(h.shape[0], -1)
+        h = h.reshape(h.shape[0], -1)
         return h
