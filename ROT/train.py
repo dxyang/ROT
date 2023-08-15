@@ -9,9 +9,10 @@ from pathlib import Path
 
 import copy
 from datetime import datetime
+import os
 import sys
 curr_file = Path.cwd()
-rewardlearning_vid_repo_root = "/home/dxyang/code/rewardlearning-vid"
+rewardlearning_vid_repo_root = os.path.expanduser("~/code/rewardlearning-vid")
 sys.path.append(rewardlearning_vid_repo_root)
 from policy_learning.envs import ImageMetaworldEnv
 from reward_extraction.data import H5PyTrajDset

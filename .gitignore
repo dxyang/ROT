@@ -1,3 +1,6 @@
+ROT/exp_local
+ROT/expert_demos
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
